@@ -303,6 +303,7 @@ void CPVRTimerInfoTag::Serialize(CVariant &value) const
   value["epgsearchstring"]   = m_strEpgSearchString;
   value["fulltextepgsearch"] = m_bFullTextEpgSearch;
   value["recordinggroup"]    = m_iRecordingGroup;
+  value["maxrecordings"]     = m_iMaxRecordings;
 }
 
 int CPVRTimerInfoTag::Compare(const CPVRTimerInfoTag &timer) const

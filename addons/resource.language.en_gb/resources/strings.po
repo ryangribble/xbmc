@@ -3471,7 +3471,7 @@ msgstr ""
 # Label of "MaxRecordings" list in the PVR timer setting dialog
 #: xbmc/pvr/dialogs/GUIDialogPVRTimerSettings.cpp
 msgctxt "#817"
-msgid "Max Recordings"
+msgid "Max recordings"
 msgstr ""
 
 #empty strings from id 818 to 819
