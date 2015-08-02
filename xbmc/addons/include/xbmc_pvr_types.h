@@ -373,7 +373,7 @@ extern "C" {
     PVR_TIMER_TYPE_ATTRIBUTE_INT_VALUE
       maxRecordings[PVR_ADDON_TIMERTYPE_VALUES_ARRAY_SIZE_SMALL];
                                                             /*!< @brief (optional) Array containing the possible values of PVR_TMER.iMaxRecordings. If iMaxRecordingsSize = 0 "unlimited":50. Out of range values displayed as an integer */
-    unsigned int iMaxRecordingsDefault;                     /*!< @brief (optional) The default value for PVR_TIMER.iMaxRecordings. Must be filled in if PVR_TIMER.iMaxRecordingsSize > 0 */
+    int iMaxRecordingsDefault;                              /*!< @brief (optional) The default value for PVR_TIMER.iMaxRecordings. Must be filled in if PVR_TIMER.iMaxRecordingsSize > 0 */
 
   } ATTRIBUTE_PACKED PVR_TIMER_TYPE;
 

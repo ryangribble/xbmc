@@ -154,7 +154,7 @@ namespace PVR
     unsigned int        m_iMarginEnd;
     int                 m_iPriority;
     int                 m_iLifetime;
-    unsigned int        m_iMaxRecordings;
+    int                 m_iMaxRecordings;
     std::string         m_strDirectory;
     unsigned int        m_iRecordingGroup;
   };
