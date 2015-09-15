@@ -53,7 +53,8 @@ CEpgInfoTag::CEpgInfoTag(void) :
     m_iEpisodePart(0),
     m_iUniqueBroadcastID(0),
     m_iYear(0),
-    m_epg(NULL)
+    m_epg(NULL),
+    m_iFlags(EPG_TAG_FLAG_UNDEFINED)
 {
 }
 
@@ -71,6 +72,7 @@ CEpgInfoTag::CEpgInfoTag(CEpg *epg, PVR::CPVRChannelPtr pvrChannel, const std::s
     m_iYear(0),
     m_strIconPath(strIconPath),
     m_epg(epg),
+    m_iFlags(EPG_TAG_FLAG_UNDEFINED),
     m_pvrChannel(pvrChannel)
 {
   UpdatePath();
@@ -100,6 +102,7 @@ CEpgInfoTag::CEpgInfoTag(const EPG_TAG &data) :
   m_iEpisodePart = data.iEpisodePartNumber;
   m_iStarRating = data.iStarRating;
   m_iYear = data.iYear;
+  m_iFlags = data.iFlags;
 
   SetGenre(data.iGenreType, data.iGenreSubType, data.strGenreDescription);
 
@@ -169,7 +172,8 @@ bool CEpgInfoTag::operator ==(const CEpgInfoTag& right) const
           m_strIconPath        == right.m_strIconPath &&
           m_strFileNameAndPath == right.m_strFileNameAndPath &&
           m_startTime          == right.m_startTime &&
-          m_endTime            == right.m_endTime);
+          m_endTime            == right.m_endTime &&
+          m_iFlags             == right.m_iFlags);
 }
 
 bool CEpgInfoTag::operator !=(const CEpgInfoTag& right) const
@@ -211,6 +215,20 @@ void CEpgInfoTag::Serialize(CVariant &value) const
   value["recording"] = recording ? recording->m_strFileNameAndPath : "";
   value["isactive"] = IsActive();
   value["wasactive"] = WasActive();
+  value["flagisseries"] = FlagIsSeries();
+  value["flagislive"] = FlagIsLive();
+  value["flagisfinal"] = FlagIsFinal();
+  value["flagismovie"] = FlagIsMovie();
+  value["flagisnew"] = FlagIsNew();
+  value["flaghassubtitles"] = FlagHasSubtitles();
+  value["flaghassigning"] = FlagHasSigning();
+  value["flaghasaudiodescription"] = FlagHasAudioDescription();
+  value["flagiswidescreen"] = FlagIsWidescreen();
+  value["flagishd"] = FlagIsHD();
+  value["flagis3d"] = FlagIs3D();
+  value["flagis4k"] = FlagIs4K();
+  value["flaghassurroundsound"] = FlagHasSurroundSound();
+  value["flagissplitevent"] = FlagIsSplitEvent();
 }
 
 CDateTime CEpgInfoTag::GetCurrentPlayingTime() const
@@ -605,7 +623,8 @@ bool CEpgInfoTag::Update(const CEpgInfoTag &tag, bool bUpdateBroadcastId /* = tr
         m_iUniqueBroadcastID != tag.m_iUniqueBroadcastID ||
         EpgID()              != tag.EpgID() ||
         m_genre              != tag.m_genre ||
-        m_strIconPath        != tag.m_strIconPath
+        m_strIconPath        != tag.m_strIconPath ||
+        m_iFlags             != tag.m_iFlags
     );
     if (bUpdateBroadcastId)
       bChanged |= (m_iBroadcastId != tag.m_iBroadcastId);
@@ -629,6 +648,7 @@ bool CEpgInfoTag::Update(const CEpgInfoTag &tag, bool bUpdateBroadcastId /* = tr
       m_iGenreType         = tag.m_iGenreType;
       m_iGenreSubType      = tag.m_iGenreSubType;
       m_epg                = tag.m_epg;
+      m_iFlags             = tag.m_iFlags;
 
       {
         CSingleLock lock(m_critSection);
@@ -748,4 +768,79 @@ CPVRRecordingPtr CEpgInfoTag::Recording(void) const
 void CEpgInfoTag::SetEpg(CEpg *epg)
 {
   m_epg = epg;
+}
+
+bool CEpgInfoTag::FlagIsSeries(void) const
+{
+  return m_iFlags & EPG_TAG_FLAG_IS_SERIES ? true : false;
+}
+
+bool CEpgInfoTag::FlagIsLive(void) const
+{
+  return m_iFlags & EPG_TAG_FLAG_IS_LIVE ? true : false;
+}
+
+bool CEpgInfoTag::FlagIsFinal(void) const
+{
+  return m_iFlags & EPG_TAG_FLAG_IS_FINAL ? true : false;
+}
+
+bool CEpgInfoTag::FlagIsMovie(void) const
+{
+  return m_iFlags & EPG_TAG_FLAG_IS_MOVIE ? true : false;
+}
+
+bool CEpgInfoTag::FlagIsNew(void) const
+{
+  return m_iFlags & EPG_TAG_FLAG_IS_NEW ? true : false;
+}
+
+bool CEpgInfoTag::FlagHasSubtitles(void) const
+{
+  return m_iFlags & EPG_TAG_FLAG_HAS_SUBTITLES ? true : false;
+}
+
+bool CEpgInfoTag::FlagHasSigning(void) const
+{
+  return m_iFlags & EPG_TAG_FLAG_HAS_SIGNING ? true : false;
+}
+
+bool CEpgInfoTag::FlagHasAudioDescription(void) const
+{
+  return m_iFlags & EPG_TAG_FLAG_IS_WIDESCREEN ? true : false;
+}
+
+bool CEpgInfoTag::FlagIsWidescreen(void) const
+{
+  return m_iFlags & EPG_TAG_FLAG_IS_WIDESCREEN ? true : false;
+}
+
+bool CEpgInfoTag::FlagIsHD(void) const
+{
+  return m_iFlags & EPG_TAG_FLAG_IS_HD ? true : false;
+}
+
+bool CEpgInfoTag::FlagIs3D(void) const
+{
+  return m_iFlags & EPG_TAG_FLAG_IS_3D ? true : false;
+}
+
+bool CEpgInfoTag::FlagIs4K(void) const
+{
+  return m_iFlags & EPG_TAG_FLAG_IS_4K ? true : false;
+}
+
+bool CEpgInfoTag::FlagHasSurroundSound(void) const
+{
+  return m_iFlags & EPG_TAG_FLAG_HAS_SURROUND_SOUND ? true : false;
+}
+
+bool CEpgInfoTag::FlagIsSplitEvent(void) const
+{
+  return m_iFlags & EPG_TAG_FLAG_IS_SPLIT_EVENT ? true : false;
+}
+
+unsigned int CEpgInfoTag::Flags() const
+{
+  return m_iFlags;
 }
