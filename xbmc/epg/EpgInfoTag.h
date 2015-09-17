@@ -406,72 +406,7 @@ namespace EPG
     /*!
      * @brief status function to extract IsSeries boolean from EPG iFlags bitfield
      */
-    bool FlagIsSeries(void) const;
-
-    /*!
-     * @brief status function to extract IsLive boolean from EPG iFlags bitfield
-     */
-    bool FlagIsLive(void) const;
-
-    /*!
-     * @brief status function to extract IsFinal  boolean from EPG iFlags bitfield
-     */
-    bool FlagIsFinal(void) const;
-
-    /*!
-     * @brief status function to extract IsMovie boolean from EPG iFlags bitfield
-     */
-    bool FlagIsMovie(void) const;
-
-    /*!
-     * @brief status function to extract IsNew boolean from EPG iFlags bitfield
-     */
-    bool FlagIsNew(void) const;
-
-    /*!
-     * @brief status function to extract HasSubtitles boolean from EPG iFlags bitfield
-     */
-    bool FlagHasSubtitles(void) const;
-
-    /*!
-     * @brief status function to extract HasSigning boolean from EPG iFlags bitfield
-     */
-    bool FlagHasSigning(void) const;
-
-    /*!
-     * @brief status function to extract HasAudioDescription boolean from EPG iFlags bitfield
-     */
-    bool FlagHasAudioDescription(void) const;
-
-    /*!
-     * @brief status function to extract IsWidescreen boolean from EPG iFlags bitfield
-     */
-    bool FlagIsWidescreen(void) const;
-
-    /*!
-     * @brief status function to extract IsHD boolean from EPG iFlags bitfield
-     */
-    bool FlagIsHD(void) const;
-
-    /*!
-     * @brief status function to extract Is3D boolean from EPG iFlags bitfield
-     */
-    bool FlagIs3D(void) const;
-
-    /*!
-     * @brief status function to extract Is4K boolean from EPG iFlags bitfield
-     */
-    bool FlagIs4K(void) const;
-
-    /*!
-     * @brief status function to extract HasSurroundSound boolean from EPG iFlags bitfield
-     */
-    bool FlagHasSurroundSound(void) const;
-
-    /*!
-     * @brief status function to extract IsSplitEvent boolean from EPG iFlags bitfield
-     */
-    bool FlagIsSplitEvent(void) const;
+    bool IsSeries(void) const;
 
   private:
 
@@ -529,7 +464,7 @@ namespace EPG
 
     CEpg *                   m_epg;                /*!< the schedule that this event belongs to */
 
-    unsigned int             m_iFlags;             /*!< the status flags applicable to this EPG entry */
+    unsigned int             m_iFlags;             /*!< the status flags applicable to this EPG entry.  More bitflags will be added in a future release */
 
     CCriticalSection         m_critSection;
     PVR::CPVRChannelPtr      m_pvrChannel;

@@ -215,20 +215,7 @@ void CEpgInfoTag::Serialize(CVariant &value) const
   value["recording"] = recording ? recording->m_strFileNameAndPath : "";
   value["isactive"] = IsActive();
   value["wasactive"] = WasActive();
-  value["flagisseries"] = FlagIsSeries();
-  value["flagislive"] = FlagIsLive();
-  value["flagisfinal"] = FlagIsFinal();
-  value["flagismovie"] = FlagIsMovie();
-  value["flagisnew"] = FlagIsNew();
-  value["flaghassubtitles"] = FlagHasSubtitles();
-  value["flaghassigning"] = FlagHasSigning();
-  value["flaghasaudiodescription"] = FlagHasAudioDescription();
-  value["flagiswidescreen"] = FlagIsWidescreen();
-  value["flagishd"] = FlagIsHD();
-  value["flagis3d"] = FlagIs3D();
-  value["flagis4k"] = FlagIs4K();
-  value["flaghassurroundsound"] = FlagHasSurroundSound();
-  value["flagissplitevent"] = FlagIsSplitEvent();
+  value["isseries"] = IsSeries();
 }
 
 CDateTime CEpgInfoTag::GetCurrentPlayingTime() const
@@ -770,74 +757,9 @@ void CEpgInfoTag::SetEpg(CEpg *epg)
   m_epg = epg;
 }
 
-bool CEpgInfoTag::FlagIsSeries(void) const
+bool CEpgInfoTag::IsSeries(void) const
 {
-  return m_iFlags & EPG_TAG_FLAG_IS_SERIES ? true : false;
-}
-
-bool CEpgInfoTag::FlagIsLive(void) const
-{
-  return m_iFlags & EPG_TAG_FLAG_IS_LIVE ? true : false;
-}
-
-bool CEpgInfoTag::FlagIsFinal(void) const
-{
-  return m_iFlags & EPG_TAG_FLAG_IS_FINAL ? true : false;
-}
-
-bool CEpgInfoTag::FlagIsMovie(void) const
-{
-  return m_iFlags & EPG_TAG_FLAG_IS_MOVIE ? true : false;
-}
-
-bool CEpgInfoTag::FlagIsNew(void) const
-{
-  return m_iFlags & EPG_TAG_FLAG_IS_NEW ? true : false;
-}
-
-bool CEpgInfoTag::FlagHasSubtitles(void) const
-{
-  return m_iFlags & EPG_TAG_FLAG_HAS_SUBTITLES ? true : false;
-}
-
-bool CEpgInfoTag::FlagHasSigning(void) const
-{
-  return m_iFlags & EPG_TAG_FLAG_HAS_SIGNING ? true : false;
-}
-
-bool CEpgInfoTag::FlagHasAudioDescription(void) const
-{
-  return m_iFlags & EPG_TAG_FLAG_IS_WIDESCREEN ? true : false;
-}
-
-bool CEpgInfoTag::FlagIsWidescreen(void) const
-{
-  return m_iFlags & EPG_TAG_FLAG_IS_WIDESCREEN ? true : false;
-}
-
-bool CEpgInfoTag::FlagIsHD(void) const
-{
-  return m_iFlags & EPG_TAG_FLAG_IS_HD ? true : false;
-}
-
-bool CEpgInfoTag::FlagIs3D(void) const
-{
-  return m_iFlags & EPG_TAG_FLAG_IS_3D ? true : false;
-}
-
-bool CEpgInfoTag::FlagIs4K(void) const
-{
-  return m_iFlags & EPG_TAG_FLAG_IS_4K ? true : false;
-}
-
-bool CEpgInfoTag::FlagHasSurroundSound(void) const
-{
-  return m_iFlags & EPG_TAG_FLAG_HAS_SURROUND_SOUND ? true : false;
-}
-
-bool CEpgInfoTag::FlagIsSplitEvent(void) const
-{
-  return m_iFlags & EPG_TAG_FLAG_IS_SPLIT_EVENT ? true : false;
+  return m_iFlags & EPG_TAG_FLAG_IS_SERIES > 0;
 }
 
 unsigned int CEpgInfoTag::Flags() const

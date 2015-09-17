@@ -882,7 +882,7 @@ bool CPVRTimerInfoTag::HasEpgInfoTag(void) const
 bool CPVRTimerInfoTag::HasSeriesEpgInfoTag(void) const
 {
   if (m_epgTag &&
-      (m_epgTag->FlagIsSeries() ||
+      (m_epgTag->IsSeries() ||
        m_epgTag->SeriesNumber() > 0 ||
        m_epgTag->EpisodeNumber() > 0 ||
        m_epgTag->EpisodePart() > 0))
