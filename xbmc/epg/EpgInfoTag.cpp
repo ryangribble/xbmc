@@ -756,13 +756,3 @@ void CEpgInfoTag::SetEpg(CEpg *epg)
 {
   m_epg = epg;
 }
-
-bool CEpgInfoTag::IsSeries(void) const
-{
-  return m_iFlags & EPG_TAG_FLAG_IS_SERIES > 0;
-}
-
-unsigned int CEpgInfoTag::Flags() const
-{
-  return m_iFlags;
-}
